@@ -14,20 +14,44 @@
             <p>Artist: NEFFEX</p>
             <h1>Good Day (Wake Up)</h1>
             <div class="track">
-                <img src="soundwave-media/media/play.png">
+                <img src="soundwave-media/media/play.png" id="playBtn">
                 <div id="waveform"></div>
             </div>
         </div>
     </div>
     
     <script>
+          
+        var playBtn = document.getElementById("playBtn");
+
+
         var wavesurfer = WaveSurfer.create({
             container: '#waveform',
             waveColor: '#ddd',
-            progressColor: '#ff006c'
+            progressColor: '#ff006c',
+            barWidth: 4,
+            responsive: true,
+            height: 90,
+            barRadius: 4
     });
 
         wavesurfer.load('soundwave-media/media/Good-Day-Wake-Up-NEFFEX.mp3');
+
+        playBtn.onclick = function(){
+            wavesurfer.playPause();
+            if(playBtn.src.includes("play.png")){
+                playBtn.src = "soundwave-media/media/pause.png";
+            }
+            else{
+                playBtn.src = "soundwave-media/media/play.png"
+            }
+        }
+
+        wavesurfer.on('finish', function(){
+            playBtn.src = "soundwave-media/media/play.png";
+            wavesurfer.stop(); 
+        })
+
     </script>
 </body>
 </html>
